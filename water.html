@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Water pattern from worley cellular noise | Ido Filin</title>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="description" content="WebGL program of water animation using Worley cellular noise texture and domain distortion"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Water pattern from worley cellular noise"/>
+  <meta property="og:url" content="http://filin.fi/webgl/water.html"/>
+  <meta property="og:image" content="http://filin.fi/webgl/images/water-avatar.png"/>
+  <meta property="og:site_name" content="Ido Filin"/>
+  <meta property="og:description" content="WebGL program of water animation using Worley cellular noise texture and domain distortion"/>
+ <!--
+Copyright 2016 Ido Filin 
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ -->
+  <link rel="stylesheet" type="text/css" media="screen" href="webgl-app.css"/>
+  <script src="kangas-core.js"> </script>
+  <script src="kangas.js"> </script>
+  <script src="kangas-transforms.js"> </script>
+  <script src="kangas-constants.js"> </script>
+  <script src="kangas-renderer.js"> </script>
+  <script src="kangas-texture.js"> </script>
+  <script src="rhill-voronoi-core.min.js"> </script>
+  <script src="kangas-noise.js"> </script>
+  <script src="water.js"> </script>
+  <script>
+      (function(){
+        var worker = new Worker("shader-source-load.js");
+        worker.postMessage(JSON.stringify([ 
+    { name:"vshHeader", filename:"vertex-shader-header.glsl" },
+    { name:"fshHeader", filename:"fragment-shader-header.glsl" },
+    { name:"worleyNoiseGenVertex", filename:"worley-noise.vsh" },
+    { name:"worleyNoiseGenFragment", filename:"worley-noise.fsh" },
+    { name:"fractalNoiseGenVertex", filename:"basic2d.vsh" },
+    { name:"fractalNoiseGenFragment", filename:"fractal-noise.fsh" },
+    { name:"basic2d", filename:"basic2d-offsets.vsh" },
+    { name:"yuvMatrices", filename:"yuv-matrices.glsl" },
+    { name:"voronoiWater", filename:"seascape.fsh" },
+        ]));
+        worker.onmessage = function (e) {
+          e.target.onmessage = null;
+          var event = new CustomEvent("shaders-load");
+          event.data = JSON.parse(e.data); 
+          window.dispatchEvent(event);
+        };
+      })();
+  </script>
+</head>
+<body role="document">
+  <header role="banner" id="site-banner">
+    <h1>Ido Filin</h1>
+  </header>
+  <main role="main"><div id="full-screen-toggle" onclick="window.Kangas.prototype.requestFullscreen.call(document.getElementsByTagName('canvas')[0]);">Full&nbsp;Screen</div><div id="parent-page-link"><a href="../showcase.html#noisy-water">Back</a></div>
+  </main>
+  <footer role="contentinfo">
+  </footer>
+</body>
+</html>
