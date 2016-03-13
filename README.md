@@ -1,9 +1,7 @@
 # webgl-showcase
-WebGL programs that I have written and published on my website at: 
-http://ido.filin.fi/showcase.html
+WebGL programs that I have written and published on my website at http://ido.filin.fi/showcase.html
 
-- Files represent fully functional WebGL web apps, as appearing
-  on my website.
+- Files represent complete web apps, as appearing on my website.
 - Programs use a common helper library that I have written (files
   prefixed with *kangas-*,  and *Kangas* namespace (global object)
   in the browser's javascript environment). The library is
