@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>A touch of webgl | Ido Filin</title>
+  <title>Cloudscape | Ido Filin</title>
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="description" content="Interactive drawing app, testing touch/mouse functionality with WebGL."/>
+  <meta name="description" content="Billowing clouds from Worley noise texture."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="A touch of webgl"/>
-  <meta property="og:url" content="http://filin.fi/webgl/touchtest.html"/>
-  <meta property="og:image" content="http://filin.fi/webgl/images/touchtest-avatar.png"/>
+  <meta property="og:title" content="Cloudscape"/>
+  <meta property="og:url" content="http://filin.fi/webgl/cloudscape.html"/>
+  <meta property="og:image" content="http://filin.fi/webgl/images/cloudscape-avatar.png"/>
   <meta property="og:site_name" content="Ido Filin"/>
-  <meta property="og:description" content="Interactive drawing app, testing touch/mouse&#10;&#9;&#9;functionality with WebGL."/>
+  <meta property="og:description" content="Billowing clouds from Worley noise texture."/>
  <!--
 Copyright 2016 Ido Filin 
 
@@ -35,15 +35,22 @@ limitations under the License.
   <script src="kangas-constants.js"> </script>
   <script src="kangas-renderer.js"> </script>
   <script src="kangas-texture.js"> </script>
-  <script src="touchtest.js"> </script>
+  <script src="rhill-voronoi-core.min.js"> </script>
+  <script src="kangas-noise.js"> </script>
+  <script src="cloudscape.js"> </script>
   <script>
       (function(){
         var worker = new Worker("shader-source-load.js");
         worker.postMessage(JSON.stringify([ 
     { name:"vshHeader", filename:"vertex-shader-header.glsl" },
     { name:"fshHeader", filename:"fragment-shader-header.glsl" },
-    { name:"basic2d", filename:"basic2d.vsh" },
-    { name:"colorVectorField", filename:"color-vector-field-2d.fsh" },
+    { name:"worleyNoiseGenVertex", filename:"worley-noise.vsh" },
+    { name:"worleyNoiseGenFragment", filename:"worley-noise.fsh" },
+    { name:"fractalNoiseGenVertex", filename:"basic2d.vsh" },
+    { name:"fractalNoiseGenFragment", filename:"fractal-noise.fsh" },
+    { name:"fractalNoiseGenVertex", alias:"basic2d" },
+    { name:"yuvMatrices", filename:"yuv-matrices.glsl" },
+    { name:"skyshader", filename:"sky.fsh" },
         ]));
         worker.onmessage = function (e) {
           e.target.onmessage = null;
@@ -58,7 +65,7 @@ limitations under the License.
   <header role="banner" id="site-banner">
     <h1>Ido Filin</h1>
   </header>
-  <main role="main"><div id="full-screen-toggle" onclick="window.Kangas.prototype.requestFullscreen.call(document.getElementsByTagName('canvas')[0]);">Full&nbsp;Screen</div><div id="parent-page-link"><a href="../showcase.html#interactive-webgl">Back</a></div><div id="hud">Draw&nbsp;a&nbsp;shape&nbsp;on&nbsp;the&nbsp;screen.</div>
+  <main role="main"><div id="full-screen-toggle" onclick="window.Kangas.prototype.requestFullscreen.call(document.getElementsByTagName('canvas')[0]);">Full&nbsp;Screen</div><div id="parent-page-link"><a href="../showcase.html#cloudscape">Back</a></div>
   </main>
   <footer role="contentinfo">
   </footer>
