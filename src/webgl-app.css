@@ -39,14 +39,17 @@ canvas {
 	top : 0px;
 }
 #hud {
-	position : absolute;
-	right : 0px;
-	top : 0px;
-	max-width : 10em;
-	max-height : 1em;
+	position : fixed;
+	right : 0;
+	top : 0;
+	left : auto;
+	bottom : auto;
+	max-width : 100%;
+	max-height : 3.2rem;
 	background-color : black;
 	color : green;
 	font-size : 1.6rem;
+	font-family : monospace;
 }
 #parent-page-link, #full-screen-toggle {
 	display : block;
@@ -73,7 +76,7 @@ canvas {
 	color : rgba(0, 200, 0, 0.5);
 	font-weight : bold;
 	text-decoration : none;
-	font-family : sans;
+	font-family : sans-serif;
 	margin : 0;
 	padding : 0;
 	border : none;
