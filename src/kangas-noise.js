@@ -332,7 +332,7 @@ module.prototype.whiteNoise =
 		writable : false,
 		configurable : false,
 	});
-	rawpixels.pixelSize = [nPixelsX, nPixelsY];
+	rawpixels.pixelSize = [texopts.width, texopts.height];
 	if (texopts.memoize && memoKey)
 		memoizedResults[memoKey] = rawpixels;
 	return createTexture(context, rawpixels, texopts); 

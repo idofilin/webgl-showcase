@@ -29,26 +29,20 @@ void main(void) {
 
 	highp float swapper = step(dist.y, dist.x);
 	
-	highp vec2 outputDistances = gain * vec2(
-		mix(dist.x, dist.y, swapper),
-		mix(dist.y, dist.x, swapper));
+	highp vec2 outputDistances = clamp (
+		gain * vec2(
+			mix(dist.x, dist.y, swapper),
+			mix(dist.y, dist.x, swapper))
+	, 0.0, 1.0);
 
 	highp vec2 focalFeature = 
 		mix(sitesCoord.xy, sitesCoord.zw, swapper);
 
 	highp float cellValue = fract(
 		dot(cellIdentityCoefficients, focalFeature));
-/*
-	highp vec2 neighborFeature = 
-		mix(sitesCoord.zw, sitesCoord.xy, swapper);
-	highp vec2 edgeNormal = 
-		normalize(neighborFeature - focalFeature);
-	highp float distFromEdge = gain * (
-		0.5*dot(neighborFeature - focalFeature, edgeNormal)
-			- dot(spaceCoord.xy - focalFeature, edgeNormal));
-*/
+
 	gl_FragColor = vec4( 
-		clamp(outputDistances, 0.0, 1.0)
+		outputDistances
 		, edgeAffinity, cellValue);
 }
 
