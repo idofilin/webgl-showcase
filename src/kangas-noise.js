@@ -406,9 +406,10 @@ function textureOptions (context, options, suffix) {
 	var gl = context[nativeObjPropName]; 
 	var opts = { 
 		name : options && typeof options.name === "string" && options.name || false,
-		format: options && options.format || gl.RGBA, 
-		magfilter:options && options.magfilter || gl.LINEAR, 
-		minfilter:options && options.minfilter || gl.LINEAR_MIPMAP_LINEAR,
+		format: gl.RGBA, 
+		magfilter:options && (options.magfilter || options.filter) || gl.LINEAR, 
+		minfilter:options && (options.minfilter || options.filter) || gl.LINEAR_MIPMAP_LINEAR,
+		filter: options && options.filter || null, 
 		width: (options && options.width) || 256,
 		height: (options && options.height) || 256,
 		wrap: options && options.wrap || gl.REPEAT,
