@@ -68,7 +68,7 @@ function setupContext(event) {
 				gl.enable(gl.DEPTH_TEST);
 				gl.bindBuffer(gl.ARRAY_BUFFER, renderer.vertexBuffer);
 				gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, renderer.indexBuffer);
-				gl.lineWidth(6.0);
+				gl.lineWidth(5.0);
 				document.body.appendChild(worldview.canvas);
 				firstRendering = true;
 				renderer.animate(skipFrame);
