@@ -1,0 +1,78 @@
+<!doctype html>
+<html manifest="seascape.appcache" lang="en">
+<head>
+  <title>Seascape | Ido Filin</title>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="description" content="Navigate the animated seascape with mouse/touch. A standalone app that works offline and can be added to the home screen of a smartphone and or tablet."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Seascape"/>
+  <meta property="og:url" content="http://filin.fi/webgl/seascape.html"/>
+  <meta property="og:image" content="http://filin.fi/webgl/images/seascape-avatar.png"/>
+  <meta property="og:site_name" content="Ido Filin"/>
+  <meta property="og:description" content="Navigate the animated seascape with mouse/touch. A standalone app that works offline and can be added to the home screen of a smartphone and or tablet."/>
+ <!--
+Copyright 2016 Ido Filin 
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+ -->
+  <link rel="stylesheet" type="text/css" media="screen" href="webgl-app.css"/>
+  <link rel="icon shortcut" sizes="16x16 30x30 32x32 48x48 60x60 64x64 72x72 76x76 90x90 96x96 120x120 128x128 144x144 152x152 168x168 180x180 192x192 256x256" href="seascape.ico"/>
+  <link rel="apple-touch-icon" sizes="16x16 30x30 32x32 48x48 60x60 64x64 72x72 76x76 90x90 96x96 120x120 128x128 144x144 152x152 168x168 180x180 192x192 256x256" href="seascape.ico"/>
+  <script src="kangas-core.js"> </script>
+  <script src="kangas.js"> </script>
+  <script src="kangas-transforms.js"> </script>
+  <script src="kangas-constants.js"> </script>
+  <script src="kangas-renderer.js"> </script>
+  <script src="kangas-texture.js"> </script>
+  <script src="rhill-voronoi-core.min.js"> </script>
+  <script src="kangas-noise.js"> </script>
+  <script src="seascape.js"> </script>
+  <script>
+      (function(){
+        var worker = new Worker("shader-source-load.js");
+        worker.postMessage(JSON.stringify([ 
+    { name:"vshHeader", filename:"vertex-shader-header.glsl" },
+    { name:"fshHeader", filename:"fragment-shader-header.glsl" },
+    { name:"worleyNoiseGenVertex", filename:"worley-noise.vsh" },
+    { name:"worleyNoiseGenFragment", filename:"worley-noise.fsh" },
+    { name:"fractalNoiseGenVertex", filename:"basic2d.vsh" },
+    { name:"fractalNoiseGenFragment", filename:"fractal-noise.fsh" },
+    { name:"basic3d", filename:"basic3d-offsets.vsh" },
+    { name:"fractalNoiseGenVertex", alias:"basic2d" },
+    { name:"skyshader", filename:"sky.fsh" },
+    { name:"basiclookup", filename:"basic-texture-lookup.fsh" },
+    { name:"yuvMatrices", filename:"yuv-matrices.glsl" },
+    { name:"noisyWater", filename:"seascape.fsh" },
+        ]));
+        worker.onmessage = function (e) {
+          e.target.onmessage = null;
+          var event = new CustomEvent("shaders-load");
+          event.data = JSON.parse(e.data); 
+          window.dispatchEvent(event);
+        };
+      })();
+  </script>
+</head>
+<body role="document">
+  <header role="banner" id="site-banner">
+    <h1>Ido Filin</h1>
+  </header>
+  <main role="main"><div style="position : absolute; right:0px; width: 20%; height:20%;" onclick="window.Kangas.prototype.requestFullscreen.call(document.getElementsByTagName('canvas')[0]);"> </div>
+  </main>
+  <footer role="contentinfo">
+  </footer>
+</body>
+</html>
