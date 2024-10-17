@@ -1,5 +1,5 @@
 # webgl-showcase
-WebGL programs that I have written and published on my website at http://ido.filin.fi/showcase.html
+WebGL programs that I have written and published on my website at http://ido.filin.fi/showcase
 
 - Files represent complete web apps, as appearing on my website.
 - Programs use a common helper library that I have written (files
